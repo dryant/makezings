@@ -23,7 +23,21 @@ class ReviewResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('transaction_id')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('user_id')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\TextInput::make('review')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('delivery_time')
+                    ->numeric(),
+                Forms\Components\TextInput::make('print_quality')
+                    ->numeric(),
+                Forms\Components\TextInput::make('price')
+                    ->numeric()
+                    ->prefix('$'),
             ]);
     }
 
@@ -31,7 +45,31 @@ class ReviewResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('transaction_id')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('user_id')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('review')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('delivery_time')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('print_quality')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('price')
+                    ->money()
+                    ->sortable(),
             ])
             ->filters([
                 //
