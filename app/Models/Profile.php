@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     use HasFactory;
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
+    
+    public function image(){
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }
