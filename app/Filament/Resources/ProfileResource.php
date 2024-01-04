@@ -26,6 +26,8 @@ class ProfileResource extends Resource
     {
         return $form
             ->schema([
+                Select::make('user_id')
+                    ->relationship('users', 'name'),
                 TextInput::make('user_id')
                     ->required()
                     ->numeric(),
