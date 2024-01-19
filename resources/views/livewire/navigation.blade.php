@@ -12,10 +12,10 @@
                 <div class="flex justify-center items-center">
                     <ul class="mr-12 space-x-4 md:space-x-6 text-sm font-medium">
                         <li class="inline-block">
-                            <a href="index.html" class="hover:underline">Inicio</a>
+                            <a href="/" class="hover:underline">Inicio</a>
                         </li>
                         <li class="inline-block">
-                            <a href="makers.html" class="hover:underline">Makers</a>
+                            <a href="makers" class="hover:underline">Makers</a>
                         </li>
                         <li class="inline-block">
                             <a href="zings.html" class="hover:underline">zings</a>
