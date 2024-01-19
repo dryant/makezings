@@ -1,4 +1,4 @@
-<x-app-layout></x-app-layout>
+<x-app-layout>
     <div class="container shadow-2xl mx-auto py-14 px-8 bg-white">
         <div class="intro">
             <h2 class="text-7xl font-bold text-center">
@@ -64,3 +64,4 @@
             Haz Login
         </button>
     </div>
+</x-app-layout>

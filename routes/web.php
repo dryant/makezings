@@ -7,7 +7,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/makers', [UserController::class, 'index'])->name('makers.index');
 
 Route::middleware([
     'auth:sanctum',
