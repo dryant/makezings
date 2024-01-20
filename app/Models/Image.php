@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
+    // protected $keyType = 'unsignedBigInteger';
     use HasFactory;
     public function imageable(){
         return $this->morphTo();
     }
+
 }

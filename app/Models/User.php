@@ -60,7 +60,7 @@ class User extends Authenticatable
     ];
 
     public function profile() {
-        return $this->hasOne('App\Models\Profile');
+        return $this->hasOne(Profile::class, 'user_id');
     }
 
     public function printers(){

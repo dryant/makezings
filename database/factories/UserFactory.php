@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
-
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
@@ -20,16 +19,16 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $name = $this->faker->unique()->name(12);
         return [
-            'name' => $this->faker->name(),
+            'name' => $name,
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '$2y$12$aw.hmlgzOfzhsfCCx9VgNeQAa6GtD.VtVjO4JPIBO9Zl1BgAZbwAW', // password is 12345678 for all test users
+            'slug' => Str::slug($name),
+            'remember_token' => Str::random(10),
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
-            'remember_token' => Str::random(10),
-            'profile_photo_path' => null,
-            'current_team_id' => null,
         ];
     }
 
