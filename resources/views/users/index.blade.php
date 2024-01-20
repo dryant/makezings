@@ -9,10 +9,9 @@
         <div class="mb-32"></div>
         <div class="content-page">
             <div class="sm:grid-cols-2 grid lg:grid-cols-4 gap-8">
-            @foreach ($users as $user)
-                
-            @livewire('maker-card')
-            @endforeach
+                @foreach ($users as $user)
+                <x-maker-card :maker="$user"></x-maker-card>
+                @endforeach
             </div>
         </div>
     </div>
