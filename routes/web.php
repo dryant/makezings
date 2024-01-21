@@ -8,6 +8,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::view('/register', 'auth.register')->name('register');
+
 Route::get('/makers', [UserController::class, 'index'])->name('makers.index');
 
 Route::get('/makers/{user:slug}', [UserController::class, 'show'])->name('makers.show');

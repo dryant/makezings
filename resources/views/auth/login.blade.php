@@ -2,6 +2,7 @@
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
+            <p class="text-xl">Login de usuario</p>
         </x-slot>
 
         <x-validation-errors class="mb-4" />

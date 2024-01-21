@@ -1,7 +1,8 @@
 <x-guest-layout>
     <x-authentication-card>
-        <x-slot name="logo">
+        <x-slot name="logo" class="text-center">
             <x-authentication-card-logo />
+            <p class="text-xl font-bold">Registro de usuario</p>
         </x-slot>
 
         <x-validation-errors class="mb-4" />
@@ -17,6 +18,11 @@
             <div class="mt-4">
                 <x-label for="email" value="{{ __('Email') }}" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+            </div>
+
+            <div class="mt-4">
+                <x-label for="city" value="{{ __('Ciudad') }}" />
+                <x-input id="city" class="block mt-1 w-full" type="text" name="city" :value="old('city')" required autocomplete="city" />
             </div>
 
             <div class="mt-4">
