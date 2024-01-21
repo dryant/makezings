@@ -8,9 +8,6 @@
                 alt=""
             />
             <div class="text-center mt-2 text-3xl font-medium">{{ $maker->name }}</div>
-            <p class="text-xs">
-            {{ asset('images/gravatar_'.$maker->id.'.png') }}
-            </p>
             <div class="text-center font-light text-sm">
                 <div class="flex justify-center items-center">
                     <div class="flex items-center mt-1 mb-1">

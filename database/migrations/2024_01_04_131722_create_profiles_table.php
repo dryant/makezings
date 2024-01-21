@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('profile_photo_path')->nullable();
             $table->string('country');
             $table->string('postal_code');
             $table->text('biography')->nullable();
