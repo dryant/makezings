@@ -1,11 +1,13 @@
 <div class="zing-card">
     <div class="header">
         <h2>{{ $zing->title }}</h2>
-        <p class="username">{{ $zing->maker->name }}</p>
+        <a href="{{ route('makers.show', $zing->maker->slug) }}">
+            <p class="username">{{ $zing->maker->name }}</p>
+        </a>
     </div>
     <div
     class="zing-card__image"
-    style="background-image: url('{{ asset('images/zing3d.png') }}')"
+    style="background-image: url('{{ $zing->image->url }}')"
     >
     <!-- <img src="./assets/images/zing3d.png" alt="" /> -->
 </div>

@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\City;
+use App\Models\Zing;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             UserSeeder::class,
             ProfileSeeder::class,
-            ZingSeeder::class,
+            ZingSeeder::class
         ]);
 
         
