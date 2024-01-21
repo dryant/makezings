@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
         $profile->user_id = $user->id;
         $profile->country = 'España';
         $profile->postal_code = '28001';
-        $profile->biography = "Ingenierio industrial. Me encanta diseñar mis propias piezas mecanicas. Adoro la impresión 3D desde que me compré mi primera impresora en el 2016. Si necesitas una pieza hecha a medida, soy tu maker.";
+        $profile->biography = "Me llamo dryant. Soy ingeniero informatiko y maker por afición. Diseño Piezas";
         $profile->website = "https://dryant.com";
         $profile->instagram = "https://www.instagram.com/dryant/";
         $profile->youtube = "https://www.youtube.com/channel/UCsviTHiUZRIVDzIc4YUE7Ag";
@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
                 'user_id' => $user->id,
                 'country' => 'España',
                 'postal_code' => '28001',
-                'biography' => "Me llamo ".$user->name.". Soy ingeniero informatico y maker por afición. Diseño Piezas",
+                'biography' => fake()->sentence(25),
                 'website' => "https://dryant.com",
                 'instagram' => "https://www.instagram.com/dryant/",
                 'youtube' => "https://www.youtube.com/channel/UCsviTHiUZRIVDzIc4YUE7Ag",

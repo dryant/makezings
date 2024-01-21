@@ -13,7 +13,7 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
 
-    public function show($slug)
+    public function show ($slug)
     {
         $user = User::where('slug', $slug)->firstOrFail();
         return view('users.show', compact('user'));

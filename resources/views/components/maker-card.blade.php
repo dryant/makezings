@@ -3,7 +3,7 @@
     <div class="font-sans mb-20 w-full flex flex-row justify-center items-center">
         <div class="card w-96 mx-auto bg-white border border-zinc-200">
             <img
-                class="w-32 mx-auto rounded-full -mt-20 border-2 border-white"
+                class="avatar w-32 mx-auto rounded-full -mt-20 border-2 border-white"
                 src="{{ asset('images/gravatar_'.$maker->id.'.png') }}"
                 alt=""
             />

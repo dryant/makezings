@@ -9,7 +9,7 @@ Route::get('/', function () {
 
 Route::get('/makers', [UserController::class, 'index'])->name('makers.index');
 
-Route::get('/makers/{slug}', [UserController::class, 'show'])->name('makers.show');
+Route::get('/makers/{user:slug}', [UserController::class, 'show'])->name('makers.show');
 
 Route::middleware([
     'auth:sanctum',
