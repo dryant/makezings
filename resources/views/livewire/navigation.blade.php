@@ -15,7 +15,7 @@
                             <a href="/" class="hover:underline">Inicio</a>
                         </li>
                         <li class="inline-block">
-                            <a href="makers" class="hover:underline">Makers</a>
+                            <a href="{{ route('makers.index') }}" class="hover:underline">Makers</a>
                         </li>
                         <li class="inline-block">
                             <a href="zings.html" class="hover:underline">zings</a>
