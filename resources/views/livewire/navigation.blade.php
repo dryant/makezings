@@ -18,19 +18,21 @@
                             <a href="{{ route('makers.index') }}" class="hover:underline">Makers</a>
                         </li>
                         <li class="inline-block">
-                            <a href="zings.html" class="hover:underline">zings</a>
+                            <a href="{{ route('zings.index') }}" class="hover:underline">zings</a>
                         </li>
                     </ul>
+                    @guest
                     <a
-                        href="#"
-                        class="inline-block px-5 py-2 mr-4 text-white bg-blue-500 rounded shadow hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                        href="{{ url('admin/login') }}"
+                        class="inline-block px-5 py-2 mr-4 text-white bg-orange-400 hover:bg-white hover:text-black border-gray-700 focus:outline-none focus:shadow-outline"
                         ><i class="fa-solid fa-user mr-2"></i>Iniciar sesión</a
                     >
                     <a
-                        href="#"
-                        class="inline-block px-5 py-2 ml-auto text-gray-800 bg-white border rounded shadow hover:bg-gray-100 focus:outline-none focus:shadow-outline"
+                        href="{{ url('admin/register') }}"
+                        class="inline-block px-5 py-2 ml-auto text-gray-800 bg-white border hover:bg-gray-100 focus:outline-none focus:shadow-outline"
                         ><i class="fa-solid fa-pencil mr-2"></i>Registrarse</a
                     >
+                    @endguest
                 </div>
             </div>
         </nav>
