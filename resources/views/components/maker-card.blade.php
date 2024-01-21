@@ -4,10 +4,13 @@
         <div class="card w-96 mx-auto bg-white border border-zinc-200">
             <img
                 class="w-32 mx-auto rounded-full -mt-20 border-2 border-white"
-                src="{{ asset($maker->image) }}"
+                src="{{ asset('images/gravatar_'.$maker->id.'.png') }}"
                 alt=""
             />
             <div class="text-center mt-2 text-3xl font-medium">{{ $maker->name }}</div>
+            <p class="text-xs">
+            {{ asset('images/gravatar_'.$maker->id.'.png') }}
+            </p>
             <div class="text-center font-light text-sm">
                 <div class="flex justify-center items-center">
                     <div class="flex items-center mt-1 mb-1">
