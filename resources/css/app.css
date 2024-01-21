@@ -6,3 +6,5 @@
 [x-cloak] {
     display: none;
 }
+
+@import './sass/main.scss';

@@ -76,7 +76,7 @@
             </div>
             <hr class="mt-8" />
             <div class="text-center my-4">
-                <a href="maker.html">
+                <a href="{{ route('makers.show', $maker->slug) }}">
                     <button
                         class="w-1/2 hover:bg-orange-400 border border-zinc-200 px-4 py-2"
                     >

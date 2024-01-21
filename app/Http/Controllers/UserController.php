@@ -12,5 +12,11 @@ class UserController extends Controller
         $users = User::with('profile')->get();
         return view('users.index', compact('users'));
     }
+
+    public function show($slug)
+    {
+        $user = User::where('slug', $slug)->firstOrFail();
+        return view('users.show', compact('user'));
+    }
 }
 
