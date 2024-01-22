@@ -6,9 +6,9 @@
     <link
     rel="stylesheet"
     type="text/css"
-    href="./assets/styles/main.scss"
+    href="{{ asset('css/app.css') }}"
     />
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/sass/main.scss', 'resources/js/app.js'])
     <!-- do not remove this line! -->
     <title>{{ config('app.name', 'Laravel') }}</title>
 </head>
