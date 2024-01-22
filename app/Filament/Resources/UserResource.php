@@ -30,20 +30,25 @@ class UserResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
+                Forms\Components\DateTimePicker::make('email_verified_at')
+                    ->hidden(),
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('two_factor_secret')
+                    ->hidden() 
                     ->maxLength(65535)
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('two_factor_recovery_codes')
+                    ->hidden()
                     ->maxLength(65535)
                     ->columnSpanFull(),
-                Forms\Components\DateTimePicker::make('two_factor_confirmed_at'),
+                Forms\Components\DateTimePicker::make('two_factor_confirmed_at')
+                    ->hidden(),
                 Forms\Components\TextInput::make('slug')
                     ->required()
+                    ->disabled()
                     ->maxLength(255),
             ]);
     }
@@ -57,18 +62,24 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email_verified_at')
+                    ->hidden()
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('two_factor_confirmed_at')
                     ->dateTime()
-                    ->sortable(),
+                    ->hidden()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->hidden()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->hidden()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
