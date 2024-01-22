@@ -40,12 +40,8 @@ class TransactionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('maker_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('customer_id')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('maker.name')->label('Maker Name'),
+                Tables\Columns\TextColumn::make('customer.name')->label('Customer Name'),
                 Tables\Columns\TextColumn::make('price')
                     ->money()
                     ->sortable(),

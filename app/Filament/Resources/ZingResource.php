@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ZingResource\Pages;
 use App\Filament\Resources\ZingResource\RelationManagers;
 use App\Models\Zing;
+use App\Models\User; // Import the missing User class
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -21,11 +22,13 @@ class ZingResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $makers = User::all()->pluck('name', 'id')->toArray();
+
         return $form
             ->schema([
-                Forms\Components\TextInput::make('user_id')
+                Forms\Components\Select::make('user_id')
                     ->required()
-                    ->numeric(),
+                    ->options($makers),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
@@ -39,9 +42,8 @@ class ZingResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('maker.name')
+                ->label('Maker'),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')

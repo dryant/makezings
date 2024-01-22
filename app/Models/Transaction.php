@@ -17,4 +17,14 @@ class Transaction extends Model
     public function image(){
         return $this->morphOne(Image::class, 'imageable');
     }
+
+    public function maker()
+    {
+        return $this->belongsTo('App\Models\User', 'maker_id');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo('App\Models\User', 'customer_id');
+    }
 }
