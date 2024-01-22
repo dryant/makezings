@@ -23,7 +23,7 @@
                     </ul>
                     @auth
                     <a
-                        href="{{ url('admin/dashboard') }}"
+                        href="{{ url('cpanel') }}"
                         class="inline-block px-5 py-2 mr-4 text-white bg-orange-400 hover:bg-white hover:text-black border-gray-700 focus:outline-none focus:shadow-outline"
                         ><i class="fa-solid fa-user mr-2"></i>CPanel</a>
                     <form action="{{ url('admin/logout') }}" method="POST">
