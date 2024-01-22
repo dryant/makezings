@@ -12,9 +12,6 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\TextInput;
-use Illuminate\Support\Facades\Hash;
-use Filament\Tables\Columns\TextColumn;
 
 class UserResource extends Resource
 {
@@ -26,21 +23,28 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
+                Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                TextInput::make('email')
+                Forms\Components\TextInput::make('email')
                     ->email()
                     ->required()
                     ->maxLength(255),
-                TextInput::make('password')
-                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                Forms\Components\DateTimePicker::make('email_verified_at'),
+                Forms\Components\TextInput::make('password')
                     ->password()
                     ->required()
-                    // ->hiddenOn('edit')
                     ->maxLength(255),
-                TextInput::make('profile_photo_path')
-                    ->maxLength(2048),
+                Forms\Components\Textarea::make('two_factor_secret')
+                    ->maxLength(65535)
+                    ->columnSpanFull(),
+                Forms\Components\Textarea::make('two_factor_recovery_codes')
+                    ->maxLength(65535)
+                    ->columnSpanFull(),
+                Forms\Components\DateTimePicker::make('two_factor_confirmed_at'),
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 
@@ -48,13 +52,17 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id'),
-                TextColumn::make('name')
+                Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('email')
+                Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                TextColumn::make('password'),
-                TextColumn::make('profile_photo_path')
+                Tables\Columns\TextColumn::make('email_verified_at')
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('two_factor_confirmed_at')
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

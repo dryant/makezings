@@ -40,6 +40,7 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
             ])
             ->profile()
+            ->homeUrl(fn () => route('makers.index'))
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
