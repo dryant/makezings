@@ -59,7 +59,7 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center font-bold text-sm mb-4">{{ $maker->city }}</div>
+            <div class="text-center font-bold text-sm mb-4">@if(!empty($maker->profile->city->name)) {{ $maker->profile->city->name }} @else La Tierra @endif</div>
             <div class="flex flex-col px-6 mt-2">
                 <div class="flex justify-between mb-1">
                     <p class="font-bold">PRECIO</p>

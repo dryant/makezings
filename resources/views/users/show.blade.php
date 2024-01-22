@@ -36,7 +36,7 @@
                                 </div>
                                 
                                 <div class="flex justify-end">
-                                    <p class="font-bold self-center text-sm">Madrid</p>
+                                    <p class="font-bold self-center text-sm">@if(!empty($user->profile->postal_code)) {{ $user->profile->city->name }} @else La Tierra @endif</p>
                                 </div>
                             </div>
                             <hr />
@@ -92,7 +92,7 @@
                         {{-- Fin Partial Rating --}}
                     </div>
                     <div class="maker-bio-card__body w-full h-full min-h-8 my-6 text-justify">
-                        {{ $user->profile->biography }}
+                        @if(!empty($user->profile->biography))  {{ $user->profile->biography }} @else Planeta tierra @endif
                     </div>
                     <div class="maker-bio-card__footer w-full border-t-2 border-slate-300 text-center pt-4 pb-0">
                         <a href="#contact">
@@ -125,7 +125,7 @@
             
             <p class="text-3xl font-bold">Contacta con {{ $user->name }}</p>
             <hr class="mt-4 mb-8" />
-            <p>Para poder contactar con otros usuarios tienes que estar logueado. Haz loguin -><a href="{{ url('admin/login') }}" class="inline-block px-5 py-2 mr-4 text-black bg-orange-400  hover:bg-white hover:border-black "><i class="fa-solid fa-user mr-2"></i>Iniciar sesión</a></p>
+            <p>Para poder contactar con otros usuarios tienes que estar logueado. Haz loguin -><a href="{{ route('login') }}" class="inline-block px-5 py-2 mr-4 text-black bg-orange-400  hover:bg-white hover:border-black "><i class="fa-solid fa-user mr-2"></i>Iniciar sesión</a></p>
             @endguest
 
             @auth
