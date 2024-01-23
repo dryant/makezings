@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             UserSeeder::class,
             ProfileSeeder::class,
-            ZingSeeder::class
+            ZingSeeder::class,
+            PrinterSeeder::class,
         ]);
 
         
