@@ -18,7 +18,9 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
-
+use App\Filament\Resources\PrinterResource;
+use Filament\View\LegacyComponents\Widget;
+use Filament\Widgets\PrinterOverview;
 
 class AdminPanelProvider extends PanelProvider
 {
