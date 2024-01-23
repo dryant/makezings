@@ -2,10 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ZingResource\Pages;
-use App\Filament\Resources\ZingResource\RelationManagers;
-use App\Models\Zing;
-use App\Models\User; // Import the missing User class
+use App\Filament\Resources\RoleResource\Pages;
+use App\Filament\Resources\RoleResource\RelationManagers;
+use App\Models\Role;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,25 +13,22 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ZingResource extends Resource
+class RoleResource extends Resource
 {
-    protected static ?string $model = Zing::class;
+    protected static ?string $model = Role::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rocket-launch';
+    protected static ?string $navigationIcon = 'heroicon-o-shield-check';
+    protected static ?string $navigationGroup = 'Roles & Permissions';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
-        $makers = User::all()->pluck('name', 'id')->toArray();
-
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
-                    ->required()
-                    ->options($makers),
-                Forms\Components\TextInput::make('title')
+                Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('description')
+                Forms\Components\TextInput::make('guard_name')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -42,11 +38,9 @@ class ZingResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('maker.name')
-                ->label('Maker'),
-                Tables\Columns\TextColumn::make('title')
+                Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('description')
+                Tables\Columns\TextColumn::make('guard_name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -80,9 +74,9 @@ class ZingResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListZings::route('/'),
-            'create' => Pages\CreateZing::route('/create'),
-            'edit' => Pages\EditZing::route('/{record}/edit'),
+            'index' => Pages\ListRoles::route('/'),
+            'create' => Pages\CreateRole::route('/create'),
+            'edit' => Pages\EditRole::route('/{record}/edit'),
         ];
     }
 }

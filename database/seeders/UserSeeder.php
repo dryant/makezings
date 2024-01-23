@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserSeeder extends Seeder
 {
@@ -16,7 +18,9 @@ class UserSeeder extends Seeder
     */
     public function run(): void
     {
-        
+        // Antes de crear el usuario "admin", asegúrate de que el rol "Admin" exista
+        // $adminRole = Role::firstOrCreate(['name' => 'Admin']);
+
         $user = new User();
         
         /*********************************************
@@ -30,6 +34,8 @@ class UserSeeder extends Seeder
         $user->slug = 'admin';
         
         $user->save();
+
+        $user->assignRole('Admin');
         
         $user2 = new User();
         $user2->name = 'mrdryant';
