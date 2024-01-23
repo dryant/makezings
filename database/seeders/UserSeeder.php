@@ -31,6 +31,13 @@ class UserSeeder extends Seeder
         
         $user->save();
         
+        $user->name = 'mrdryant';
+        $user->email = 'mrdryant@gmail.com';
+        $user->password = bcrypt('12345678');
+        $user->slug = 'mrdryant';
+        
+        $user->save();
+
         $profile = new Profile();
         
         $profile->user_id = $user->id;
