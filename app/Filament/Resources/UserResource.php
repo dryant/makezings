@@ -5,13 +5,26 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
+use Filament\Actions\Modal\Actions\Action;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\StaticAction;
+use Filament\Tables\Actions\Action as ActionsAction;
+use Filament\Tables\Actions;
 
 class UserResource extends Resource
 {
@@ -23,33 +36,36 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('email')
+                TextInput::make('email')
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at')
+                DateTimePicker::make('email_verified_at')
                     ->hidden(),
-                Forms\Components\TextInput::make('password')
+                TextInput::make('password')
+                    ->hidden('OnEdit')
                     ->password()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('two_factor_secret')
+                Textarea::make('two_factor_secret')
                     ->hidden() 
                     ->maxLength(65535)
                     ->columnSpanFull(),
-                Forms\Components\Textarea::make('two_factor_recovery_codes')
+                Textarea::make('two_factor_recovery_codes')
                     ->hidden()
                     ->maxLength(65535)
                     ->columnSpanFull(),
-                Forms\Components\DateTimePicker::make('two_factor_confirmed_at')
+                DateTimePicker::make('two_factor_confirmed_at')
                     ->hidden(),
-                Forms\Components\TextInput::make('slug')
+                TextInput::make('slug')
                     ->required()
                     ->disabled()
                     ->maxLength(255),
+                Select::make('role')->multiple()->relationship('roles', 'name'),
+
             ]);
     }
 
@@ -57,28 +73,29 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
+                TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
+                TextColumn::make('email_verified_at')
                     // ->hidden()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('two_factor_confirmed_at')
+                TextColumn::make('two_factor_confirmed_at')
                     ->dateTime()
                     // ->hidden()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('slug')
+                TextColumn::make('slug')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('roles.name'),
+                TextColumn::make('created_at')
                     // ->hidden()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     // ->hidden()
                     ->dateTime()
                     ->sortable()
@@ -88,11 +105,21 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
+
+                Tables\Actions\Action::make('Verify')->icon('heroicon-m-check-badge')->action(function(User $user) {
+                    $user->email_verified_at = date('Y-m-d H:i:s');
+                    $user->save();
+                }),
+                Tables\Actions\Action::make('Unverify')->icon('heroicon-m-x-circle')->action(function(User $user) {
+                    $user->email_verified_at = null;
+                    $user->save();
+                }),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
