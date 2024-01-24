@@ -32,6 +32,7 @@ class UserSeeder extends Seeder
         $user->email = 'dryant@gmail.com';
         $user->password = bcrypt('12345678');
         $user->slug = 'admin';
+        $user->avatar_url = asset('images/gravatar_1.png');
         
         $user->save();
 
@@ -42,6 +43,8 @@ class UserSeeder extends Seeder
         $user2->email = 'mrdryant@gmail.com';
         $user2->password = bcrypt('12345678');
         $user2->slug = 'mrdryant';
+        $user->avatar_url = asset('images/gravatar_2.png');
+
         
         $user2->save();
 
@@ -121,7 +124,7 @@ class UserSeeder extends Seeder
         $longitudAleatoria = random_int(5, 10);
         
         foreach ($users as $user) {
-            $id = ($user->id) + 1;
+            $id = ($user->id) + 2;
             $random_postal_code = Arr::random($codigosPostales);
             $web = Str::random($longitudAleatoria);
             $extension = Arr::random(['com', 'es', 'org', 'net', 'info', 'biz', 'eu', 'cat', 'edu', 'gov', 'int', 'mil', 'tel', 'travel']);
@@ -141,21 +144,21 @@ class UserSeeder extends Seeder
                 
             ]);
             
-            $image = new \App\Models\Image();
+            // $image = new \App\Models\Image();
             
-            $image->url = asset('images/gravatar_'.$user->id.'.png');
-            $image->imageable_id = $profile->id;
-            $image->imageable_type = 'App\Models\Profile';
+            // $image->url = asset('images/gravatar_'.$user->id.'.png');
+            // $image->imageable_id = $profile->id;
+            // $image->imageable_type = 'App\Models\Profile';
             
-            var_dump($image->url);
+            // var_dump($image->url);
             
-            $image->save();
+            // $image->save();
             
-            $profile->image()->create([
-                'url' => $image->url,
-                'imageable_id' => $profile->id,
-                'imageable_type' => 'App\Models\Profile',
-            ]);
+            // $profile->image()->create([
+            //     'url' => $image->url,
+            //     'imageable_id' => $profile->id,
+            //     'imageable_type' => 'App\Models\Profile',
+            // ]);
             
             $profile->save();
             
