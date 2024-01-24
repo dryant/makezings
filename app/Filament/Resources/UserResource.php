@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class UserResource extends Resource
 {
@@ -24,29 +25,41 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label(__('Nombre'))
                     ->required()
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(
+                        fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null)
                     ->maxLength(255),
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->disabled()
+                    ->dehydrated()
+                    ->unique('users', 'slug', ignoreRecord: true),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
+                Forms\Components\DateTimePicker::make('email_verified_at')
+                    ->hidden(),
                 Forms\Components\FileUpload::make('avatar_url')
+                    ->directory('images/avatars')
                     ->image(),
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->required()
+                    ->hiddenOn('edit')
                     ->maxLength(255),
                 Forms\Components\Textarea::make('two_factor_secret')
                     ->maxLength(65535)
+                    ->hidden()
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('two_factor_recovery_codes')
                     ->maxLength(65535)
+                    ->hidden()
                     ->columnSpanFull(),
-                Forms\Components\DateTimePicker::make('two_factor_confirmed_at'),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\DateTimePicker::make('two_factor_confirmed_at')
+                    ->hidden(),
             ]);
     }
 
