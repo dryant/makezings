@@ -29,22 +29,23 @@ class UserSeeder extends Seeder
         
         
         $user->name = 'admin';
-        $user->email = 'dryant@gmail.com';
+        $user->email = 'admin@gmail.com';
         $user->password = bcrypt('12345678');
         $user->slug = 'admin';
-        $user->avatar_url = asset('images/gravatar_1.png');
+        $user->avatar_url = 'images/avatars/gravatar_1.png';
         
         $user->save();
-
+        
         $user->assignRole('Admin');
         
         $user2 = new User();
-        $user2->name = 'mrdryant';
-        $user2->email = 'mrdryant@gmail.com';
+        $user2->name = 'Alvaro';
+        $user2->email = 'alvaro@gmail.com';
         $user2->password = bcrypt('12345678');
-        $user2->slug = 'mrdryant';
-        $user->avatar_url = asset('images/gravatar_2.png');
-
+        $user2->slug = 'alvaro';
+        $user2->avatar_url = 'images/avatars/gravatar_9.png';
+        
+        $user->assignRole('Usuario');
         
         $user2->save();
 

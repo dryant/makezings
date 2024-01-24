@@ -7,7 +7,7 @@
     </div>
     <div
     class="zing-card__image"
-    style="background-image: url('{{ $zing->image->url }}')"
+    style="background-image: url('{{ $zing->image_url }}')"
     >
     <!-- <img src="./assets/images/zing3d.png" alt="" /> -->
 </div>

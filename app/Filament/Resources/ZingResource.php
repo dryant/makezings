@@ -4,12 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ZingResource\Pages;
 use App\Filament\Resources\ZingResource\RelationManagers;
+use App\Models\Image;
 use App\Models\Zing;
 use App\Models\User; // Import the missing User class
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -42,6 +44,10 @@ class ZingResource extends Resource
     {
         return $table
             ->columns([
+                ImageColumn::make('image_url')
+                    ->label('Image')
+                    ->imageSize('100')
+                    ->imageFit('contain'),
                 Tables\Columns\TextColumn::make('maker.name')
                 ->label('Maker'),
                 Tables\Columns\TextColumn::make('title')

@@ -20,6 +20,7 @@ class ZingFactory extends Factory
             'title' => $this->faker->sentence(),
             'description' => $this->faker->sentence(),
             'user_id' => rand(1, 15),
+            'image_url' => $this->faker->imageUrl(640, 480, '3d', true),
         ];
     }
 }
