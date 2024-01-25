@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Zing;
 use Illuminate\Auth\Access\Response;
 
-class ZingsPolicy
+class ZingPolicy
 {
     /**
      * Determine whether the user can view any models.
