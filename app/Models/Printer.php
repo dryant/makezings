@@ -12,4 +12,6 @@ class Printer extends Model
     public function makers(){
         return $this->belongsToMany('App\Models\User', 'user_id');
     }
+
+    
 }
