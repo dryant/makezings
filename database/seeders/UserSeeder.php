@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
         $user = new User();
         
         /*********************************************
-        *          Estilos Usuario por defecto
+        *          Usuario Admin por defecto
         **********************************************/
         
         
@@ -32,23 +32,12 @@ class UserSeeder extends Seeder
         $user->email = 'admin@gmail.com';
         $user->password = bcrypt('12345678');
         $user->slug = 'admin';
-        $user->avatar_url = 'images/avatars/gravatar_1.png';
+        $user->avatar_url = 'images/avatars/1.jpg';
         
         $user->save();
         
         $user->assignRole('Admin');
         
-        $user2 = new User();
-        $user2->name = 'Alvaro';
-        $user2->email = 'alvaro@gmail.com';
-        $user2->password = bcrypt('12345678');
-        $user2->slug = 'alvaro';
-        $user2->avatar_url = 'images/avatars/gravatar_9.png';
-        
-        $user->assignRole('Usuario');
-        
-        $user2->save();
-
         $profile = new Profile();
         
         $profile->user_id = $user->id;
@@ -63,9 +52,49 @@ class UserSeeder extends Seeder
         
         $profile->save();
         
+        $adminprinter = new Printer();
+
+        $adminprinter->user_id = $user->id;
+        
+
+        /*********************************************
+        *          Usuario maker por defecto
+        **********************************************/
+
+        $user2 = new User();
+
+        $user2->name = 'Alvaro';
+        $user2->email = 'alvaro@gmail.com';
+        $user2->password = bcrypt('12345678');
+        $user2->slug = 'alvaro';
+        $user2->avatar_url = 'images/avatars/2.jpg';
+        
+        $user2->save();
+        
+        $user->assignRole('Usuario');
+        
+        $profile2 = new Profile();
+
+        $profile2->user_id = $user2->id;
+        $profile2->country = 'España';
+        $profile2->postal_code = '28001';
+        $profile2->biography = "Soy Alvaro. Tengo una impresora 3D y puedo imprimirte lo que quieras. Diseño Piezas con Fusion 360. Puedes ver mis diseños en Thingiverse. Si quieres que te imprima algo, contacta conmigo.";
+        $profile2->website = "https://alvaro3D.com";
+        $profile2->instagram = "https://www.instagram.com/alvaro3D/";
+        $profile2->youtube = "https://www.youtube.com/channel/UCsviTHiUZRIVDzIc4YUE7Ag";
+        $profile2->tiktok = "https://www.tiktok.com/@alvaro3D";
+        $profile2->linkedin = "https://www.linkedin.com/in/alvaro3D/";
+        
+        $profile2->save();
+        
         /************* Fin Usuario por defecto *************/
         
         $users = User::factory(14)->create();
+
+        foreach ($users as $user) {
+            $user->avatar_url = 'images/avatars/'.($user->id).'.jpg';
+            $user->save();
+        }
 
         $codigosPostales = [
             '01001', // Álava

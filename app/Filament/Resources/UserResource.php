@@ -13,7 +13,15 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
-
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Illuminate\Http\UploadedFile;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Filament\Forms\Components\FileUpload\store;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
@@ -24,41 +32,41 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->label(__('Nombre'))
                     ->required()
                     ->live(onBlur: true)
                     ->afterStateUpdated(
                         fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null)
                     ->maxLength(255),
-                Forms\Components\TextInput::make('slug')
+                TextInput::make('slug')
                     ->required()
                     ->disabled()
                     ->dehydrated()
                     ->unique('users', 'slug', ignoreRecord: true),
-                Forms\Components\TextInput::make('email')
+                TextInput::make('email')
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at')
+                DateTimePicker::make('email_verified_at')
                     ->hidden(),
-                Forms\Components\FileUpload::make('avatar_url')
+                FileUpload::make('avatar_url')
                     ->directory('images/avatars')
-                    ->image(),
-                Forms\Components\TextInput::make('password')
+                    ->avatar(),
+                TextInput::make('password')
                     ->password()
                     ->required()
                     ->hiddenOn('edit')
                     ->maxLength(255),
-                Forms\Components\Textarea::make('two_factor_secret')
+                Textarea::make('two_factor_secret')
                     ->maxLength(65535)
                     ->hidden()
                     ->columnSpanFull(),
-                Forms\Components\Textarea::make('two_factor_recovery_codes')
+                Textarea::make('two_factor_recovery_codes')
                     ->maxLength(65535)
                     ->hidden()
                     ->columnSpanFull(),
-                Forms\Components\DateTimePicker::make('two_factor_confirmed_at')
+                DateTimePicker::make('two_factor_confirmed_at')
                     ->hidden(),
             ]);
     }
@@ -67,26 +75,26 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('avatar_url'),
-                Tables\Columns\TextColumn::make('name')
+                ImageColumn::make('avatar_url'),
+                TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
+                TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
+                TextColumn::make('email_verified_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('two_factor_confirmed_at')
+                TextColumn::make('two_factor_confirmed_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('slug')
+                TextColumn::make('slug')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

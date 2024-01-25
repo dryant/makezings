@@ -14,7 +14,8 @@
                     <div class="maker-bio-card__header w-full lg:grid lg:grid-cols-3 flex flex-col items-center mb-1">
                         <!-- Div imagen -->
                         <div class="">
-                            <img class="avatar" src="{{ asset('images/gravatar_'.$user->id.'.png') }}" alt="" />
+                            <img class="avatar" src="{{ Storage::url($user->avatar_url) }}
+                            " alt="" />
                         </div>
                         
                         

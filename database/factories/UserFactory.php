@@ -31,7 +31,7 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
-            'avatar_url' => 'https://i.pravatar.cc/300?u='.$name,
+            // 'avatar_url' => 'https://i.pravatar.cc/300?u='.$name,
         ];
     }
 

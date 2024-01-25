@@ -4,7 +4,7 @@
         <div class="card w-96 mx-auto bg-white border border-zinc-200">
             <img
                 class="avatar w-32 mx-auto rounded-full -mt-20 border-2 border-white"
-                src="{{ $maker->avatar_url }}"
+                src="{{ Storage::url($maker->avatar_url) }}"
                 alt=""
             />
             <div class="text-center mt-2 text-3xl font-medium">{{ $maker->name }}</div>

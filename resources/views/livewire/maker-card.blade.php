@@ -3,7 +3,7 @@
         <div class="card w-96 mx-auto bg-white border border-zinc-200">
             <img
                 class="w-32 mx-auto rounded-full -mt-20 border-2 border-white"
-                src="{{ asset('images/gravatar_01.png') }}"
+                src="{{ Storage::url($maker->avatar_url) }} "
                 alt=""
             />
             <div class="text-center mt-2 text-3xl font-medium">Eddie</div>
