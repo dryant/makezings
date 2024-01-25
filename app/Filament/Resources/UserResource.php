@@ -22,6 +22,11 @@ use Filament\Tables\Columns\ImageColumn;
 use Illuminate\Http\UploadedFile;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Filament\Forms\Components\FileUpload\store;
+use Filament\Forms\Components\Select;
+use Illuminate\Support\Facades\Hash;
+use Filament\Infolists\Components\Grid;
+
+
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
@@ -32,7 +37,12 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
+                
+                FileUpload::make('avatar_url')
+                    ->directory('images/avatars')
+                    ->avatar(),
                 TextInput::make('name')
+
                     ->label(__('Nombre'))
                     ->required()
                     ->live(onBlur: true)
@@ -50,24 +60,40 @@ class UserResource extends Resource
                     ->maxLength(255),
                 DateTimePicker::make('email_verified_at')
                     ->hidden(),
-                FileUpload::make('avatar_url')
-                    ->directory('images/avatars')
-                    ->avatar(),
                 TextInput::make('password')
+                    ->confirmed()
+                    ->password()
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                    ->required(fn (string $context): bool => $context === 'create')
+                    ->hiddenOn('edit')
+                    ->minLength(8)
+                    ->maxLength(255)
+                    ->label(__('Contraseña')),
+                TextInput::make('password_confirmation')
                     ->password()
                     ->required()
                     ->hiddenOn('edit')
-                    ->maxLength(255),
-                Textarea::make('two_factor_secret')
-                    ->maxLength(65535)
-                    ->hidden()
-                    ->columnSpanFull(),
-                Textarea::make('two_factor_recovery_codes')
-                    ->maxLength(65535)
-                    ->hidden()
-                    ->columnSpanFull(),
-                DateTimePicker::make('two_factor_confirmed_at')
-                    ->hidden(),
+                    ->maxLength(255)
+                    ->label(__('Confirmar contraseña')),
+                // Textarea::make('two_factor_secret')
+                //     ->maxLength(65535)
+                //     ->hidden()
+                //     ->columnSpanFull(),
+                // Textarea::make('two_factor_recovery_codes')
+                //     ->maxLength(65535)
+                //     ->hidden()
+                //     ->columnSpanFull(),
+                // DateTimePicker::make('two_factor_confirmed_at')
+                //     ->hidden(),
+                // Select::make('role')
+                //     ->relationship('roles', 'name')
+                //     ->multiple()
+                //     ->label(__('Roles'))
+                //     ->default('Usuario'),
+                // Select::make('permissions')
+                //     ->relationship('permission', 'name')
+                //     ->multiple()
+                //     ->label(__('Permisos')),
             ]);
     }
 
