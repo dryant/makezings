@@ -45,9 +45,7 @@ class ZingResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('image_url')
-                    ->label('Image')
-                    ->imageSize('100')
-                    ->imageFit('contain'),
+                    ->label('Image'),
                 Tables\Columns\TextColumn::make('maker.name')
                 ->label('Maker'),
                 Tables\Columns\TextColumn::make('title')
