@@ -25,7 +25,7 @@ use Filament\Forms\Components\FileUpload\store;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\Hash;
 use Filament\Infolists\Components\Grid;
-
+use Filament\Tables\Filters\SelectFilter;
 
 class UserResource extends Resource
 {
@@ -75,25 +75,15 @@ class UserResource extends Resource
                     ->hiddenOn('edit')
                     ->maxLength(255)
                     ->label(__('Confirmar contraseña')),
-                // Textarea::make('two_factor_secret')
-                //     ->maxLength(65535)
-                //     ->hidden()
-                //     ->columnSpanFull(),
-                // Textarea::make('two_factor_recovery_codes')
-                //     ->maxLength(65535)
-                //     ->hidden()
-                //     ->columnSpanFull(),
-                // DateTimePicker::make('two_factor_confirmed_at')
-                //     ->hidden(),
-                // Select::make('role')
-                //     ->relationship('roles', 'name')
-                //     ->multiple()
-                //     ->label(__('Roles'))
-                //     ->default('Usuario'),
-                // Select::make('permissions')
-                //     ->relationship('permission', 'name')
-                //     ->multiple()
-                //     ->label(__('Permisos')),
+                Select::make('role')
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->label(__('Roles'))
+                    ->default('Usuario'),
+                Select::make('permissions')
+                    ->relationship('permissions', 'name')
+                    ->multiple()
+                    ->label(__('Permisos')),
             ]);
     }
 
@@ -110,6 +100,16 @@ class UserResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('roles.name')
+                    ->label(__('Roles'))
+                    ->badge()
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('permissions.name')
+                    ->label(__('Permisos'))
+                    ->badge()
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('two_factor_confirmed_at')
                     ->dateTime()
                     ->sortable()
@@ -126,10 +126,15 @@ class UserResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                SelectFilter::make('roles')
+                    ->relationship('roles', 'name')
+                    ->placeholder(__('Todos')),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->label(__('Editar')),
+                Tables\Actions\DeleteAction::make()
+                    ->label(__('Eliminar')),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
