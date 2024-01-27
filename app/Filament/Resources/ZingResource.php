@@ -15,6 +15,8 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Models\Role; 
+
 
 class ZingResource extends Resource
 {
@@ -28,8 +30,9 @@ class ZingResource extends Resource
 
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
+                Forms\Components\Select::make('maker.name')
                     ->required()
+                    // ->disabled(fn () => auth()->user()->hasRole('Maker') || ! auth()->user()->hasRoles())
                     ->options($makers),
                 Forms\Components\TextInput::make('title')
                     ->required()
