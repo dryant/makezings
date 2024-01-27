@@ -9,6 +9,13 @@ class Zing extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'description',
+        'image_url',
+        'user_id',
+    ];
+    
     public function maker(){
         return $this->belongsTo(User::class, 'user_id');
     }

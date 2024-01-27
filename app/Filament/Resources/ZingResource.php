@@ -3,8 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ZingResource\Pages;
-use App\Filament\Resources\ZingResource\RelationManagers;
-use App\Models\Image;
 use App\Models\Zing;
 use App\Models\User; // Import the missing User class
 use Filament\Forms;
@@ -13,13 +11,13 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Models\Role; 
-
+use Filament\Forms\Components\FileUpload;
+use Spatie\Permission\Traits\HasRoles;
 
 class ZingResource extends Resource
 {
+    use HasRoles;
+
     protected static ?string $model = Zing::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rocket-launch';
@@ -30,16 +28,20 @@ class ZingResource extends Resource
 
         return $form
             ->schema([
-                Forms\Components\Select::make('maker.name')
+                Forms\Components\Select::make('user_id')
                     ->required()
-                    // ->disabled(fn () => auth()->user()->hasRole('Maker') || ! auth()->user()->hasRoles())
-                    ->options($makers),
+                    ->disabled(fn () => auth()->user()->hasRole('Maker') && ! auth()->user()->hasRole('Admin'))
+                    ->options($makers)
+                    ->label('Maker'),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('description')
                     ->required()
                     ->maxLength(255),
+                FileUpload::make('image_url')
+                    ->directory('images/zings')
+                    ->image(),
             ]);
     }
 

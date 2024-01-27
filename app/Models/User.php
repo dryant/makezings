@@ -77,4 +77,8 @@ class User extends Authenticatable
     public function zings(){
         return $this->hasMany('App\Models\Zing'); 
     }
+
+    public function isAdmin () {
+        return $this->hasRole('Admin');
+    }
 }
