@@ -9,6 +9,7 @@ class Transaction extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['maker_id', 'customer_id', 'price', 'customer_id'];
     public function reviews()
     {
         return $this->hasMany('App\Models\Reviews');

@@ -6,12 +6,15 @@ use App\Filament\Resources\TransactionResource\Pages;
 use App\Filament\Resources\TransactionResource\RelationManagers;
 use App\Models\Transaction;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Models\User;
+use Filament\Forms\Components\TextInput;
 
 class TransactionResource extends Resource
 {
@@ -19,16 +22,38 @@ class TransactionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
-    public static function form(Form $form): Form
+    public static function getEloquentQuery(): Builder
     {
+        return parent::getEloquentQuery()->when(
+            ! auth()->user()->hasAnyRole(['Admin']),
+            fn (Builder $query) => $query->where('customer_id', auth()->user()->id)
+        );
+    }
+
+    public static function form(Form $form): Form
+    {        
+        $makers = User::all()->pluck('name', 'id')->toArray();
+
+        // dd(auth()->user()->id);
         return $form
             ->schema([
-                Forms\Components\TextInput::make('maker_id')
+                Select::make('maker_id')
                     ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('customer_id')
+                    // ->disabled(fn () => auth()->user()->hasRole('Maker') && ! auth()->user()->hasRole('Admin'))
+                    // ->default(fn () => auth()->user()->id)
+                    ->relationship('maker', 'name')
+                    ->options($makers)
+                    ->searchable()
+                    ->label('Maker'),
+                Select::make('customer_id')
                     ->required()
-                    ->numeric(),
+                    ->disabled(fn () => ! auth()->user()->hasRole('Admin'))
+                    ->default(fn()=>auth()->user()->id)
+                    ->relationship('maker', 'id')
+                    ->options($makers)
+                    // ->searchable()
+                    
+                    ->label('Cliente'),
                 Forms\Components\TextInput::make('price')
                     ->required()
                     ->numeric()
