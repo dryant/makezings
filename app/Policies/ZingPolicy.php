@@ -13,7 +13,7 @@ class ZingPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasRole(['Admin']);
+        return $user->hasRole(['Admin','Maker']);
     }
 
     /**

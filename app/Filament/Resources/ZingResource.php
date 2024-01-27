@@ -31,6 +31,10 @@ class ZingResource extends Resource
                 Forms\Components\Select::make('user_id')
                     ->required()
                     ->disabled(fn () => auth()->user()->hasRole('Maker') && ! auth()->user()->hasRole('Admin'))
+                    ->default(fn () => auth()->user()->id)
+                    ->relationship('maker', 'name')
+                    ->searchable()
+                    ->required()
                     ->options($makers)
                     ->label('Maker'),
                 Forms\Components\TextInput::make('title')

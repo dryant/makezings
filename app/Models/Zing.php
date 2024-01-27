@@ -10,6 +10,7 @@ class Zing extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id', //Agregamos el id para que no de error al momento de crear un nuevo zing
         'title',
         'description',
         'image_url',
