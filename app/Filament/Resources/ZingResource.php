@@ -46,23 +46,36 @@ class ZingResource extends Resource
         
         return $form
         ->schema([
-            Select::make('user_id')
-            ->required()
-            ->disabled(fn () => auth()->user()->hasRole('Maker') && ! auth()->user()->hasRole('Admin'))
-            ->default(fn () => auth()->user()->id)
-            ->relationship('maker', 'name')
-            ->required()
-            ->options($makers)
-            ->label('Maker'),
-            TextInput::make('title')
-            ->required()
-            ->maxLength(255),
-            TextInput::make('description')
-            ->required()
-            ->maxLength(255),
-            FileUpload::make('image_url')
-            ->directory('images/zings')
-            ->image(),
+            Forms\Components\Group::make()
+            ->columns(3)
+            ->schema([
+                Forms\Components\Section::make()
+                    ->columnSpan(2)
+                    ->schema([
+                        Forms\Components\Select::make('user_id')
+                            ->required()
+                            ->disabled(fn () => auth()->user()->hasRole('Maker') && ! auth()->user()->hasRole('Admin'))
+                            ->default(fn () => auth()->user()->id)
+                            ->relationship('maker', 'name')
+                            ->searchable()
+                            ->required()
+                            ->options($makers)
+                            ->label('Maker'),
+                        Forms\Components\TextInput::make('title')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('description')
+                            ->required()
+                            ->maxLength(255),
+                ]),
+                Forms\Components\Section::make()
+                    ->columnSpan(1)
+                    ->schema ([                    
+                        FileUpload::make('image_url')
+                            ->directory('images/zings')
+                            ->image(),
+                    ]),  
+            ])->columnSpanFull(),
         ]);
     }
     
