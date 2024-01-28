@@ -16,6 +16,7 @@ use App\Models\Transaction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use App\Models\User;
+use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Support\Str;
 
@@ -36,35 +37,11 @@ class ReviewResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $users = User::all()->pluck('name', 'id')->toArray();
-
-        // $transactions = Transaction::all()->pluck('id')->toArray();
-        $transactions = Transaction::select('id','maker_id', 'price')
-        ->get();
-        $coleccion = $transactions->map(function ($transaccion) {
-            return [
-                $transaccion->id,
-                $transaccion->maker_id,
-                $transaccion->price,
-            ];
-        })->toArray();
-
-        $transacciones = Transaction::with('maker')->get();
-
-        $nombresMakers = $transacciones->map(function ($transaccion) {
-            return $transaccion->maker->name;
-        });
-        $transacciones = Transaction::with('maker')->get();
-
-        $IDsTransacciones = $transacciones->map(function ($transaccion) {
-            return [
-                'id' => $transaccion->id,
-                'nombre_maker' => $transaccion->maker->name,
-            ];
-        });
-
-
-        // dd(auth()->user()->id);
+        if (auth()->user()->hasRole('Maker') && ! auth()->user()->hasRole('Admin')) {
+            $users = User::where('id', auth()->user()->id)->pluck('name', 'id')->toArray();
+        } else {
+            $users = User::all()->pluck('name', 'id')->toArray();
+        }
 
         return $form
             ->schema([
@@ -132,8 +109,6 @@ class ReviewResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('maker.name')->label('Maker Name'),
-
                 Tables\Columns\TextColumn::make('transaction_id')
                     ->numeric()
                     ->sortable(),
@@ -166,6 +141,7 @@ class ReviewResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
