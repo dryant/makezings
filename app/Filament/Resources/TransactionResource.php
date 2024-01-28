@@ -51,8 +51,6 @@ class TransactionResource extends Resource
                     ->default(fn()=>auth()->user()->id)
                     ->relationship('maker', 'id')
                     ->options($makers)
-                    // ->searchable()
-                    
                     ->label('Cliente'),
                 Forms\Components\TextInput::make('price')
                     ->required()
