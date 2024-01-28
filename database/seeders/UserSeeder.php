@@ -52,9 +52,9 @@ class UserSeeder extends Seeder
         
         $profile->save();
         
-        $adminprinter = new Printer();
+        // $adminprinter = new Printer();
 
-        $adminprinter->user_id = $user->id;
+        // $adminprinter->user_id = $user->id;
         
 
         /*********************************************
