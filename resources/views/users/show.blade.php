@@ -118,7 +118,6 @@
             @endforeach
             {{-- FIN ZING CARD --}}
             
-            
         </div>
         @endif
         <div id="contact" class="my-10">
