@@ -16,7 +16,7 @@
                 <div class="card w-96 mx-auto bg-white border-zinc-200 border p-6">
                     <img
                     class="w-64 mx-auto -mt-36"
-                    src="{{ asset('images/usuario.png') }}"
+                    src="{{ asset('images/ender3-s1.png') }}"
                     alt=""
                     />
                     <div class="text-center mt-2 text-3xl font-medium mb-8">Makers</div>
