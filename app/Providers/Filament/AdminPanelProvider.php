@@ -27,7 +27,7 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->default()
+            ->default('Makezings')
             ->id('cpanel')
             ->path('cpanel')
             ->login()
