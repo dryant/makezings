@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>404</title>
+  <title>503 | Mantenimiento</title>
 
   <style id="" media="all">
     /* cyrillic-ext */
@@ -132,7 +132,7 @@
     <div class="notfound">
       <div class="notfound-404">
         <h3>Oops! Algo no ha ido bien</h3>
-        <h1><span>5/span><span>0</span><span>3</span></h1>
+        <h1><span>5</span><span>0</span><span>3</span></h1>
       </div>
       <h2>El sitio web está en mantenimiento. Pronto estaremos de vuelta.</h2>
     </div>

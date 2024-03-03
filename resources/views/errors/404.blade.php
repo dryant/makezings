@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>404</title>
+  <title>404 | Página no encontrada</title>
 
   <style id="" media="all">
     /* cyrillic-ext */
@@ -131,10 +131,10 @@
   <div id="notfound">
     <div class="notfound">
       <div class="notfound-404">
-        <h3>Oops! Page not found</h3>
+        <h3>Oops! Página no encontrada</h3>
         <h1><span>4</span><span>0</span><span>4</span></h1>
       </div>
-      <h2>we are sorry, but the page you requested was not found</h2>
+      <h2>La página que estás buscando no se encuentra por aquí...</h2>
     </div>
   </div>
 </body>
