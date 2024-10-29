@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZingController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,3 +29,4 @@ Route::middleware([
 
 Route::view('/login', 'auth.login')->name('login');
 
+route::view('/cpanel', 'cpanel')->name('cpanel');
